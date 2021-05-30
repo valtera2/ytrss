@@ -1,4 +1,5 @@
 <?php
+//ini_set('display_errors', true);
 define("BASEURL", "https://www.youtube.com/feeds/videos.xml?channel_id=");
 define("EMBEDBASE", "https://www.youtube.com/embed/");
 $config = parse_ini_file("extract.ini",true);
@@ -69,6 +70,10 @@ function get_ini_id($conf) {
 }
 
 function curl_client($url, $filename) {
+	if (!function_exists('curl_init')) {
+		$error = "failed to find  curl";
+		return $error;
+	}
 	$ch = curl_init($url);
 	$file = fopen($filename, "w");
 	curl_setopt($ch, CURLOPT_FILE, $file);
@@ -86,6 +91,7 @@ if (isset($_GET['conf']))
 	$channel = get_ini_id($_GET['conf']);
 	$file = get_ini_filename($_GET['conf']);
 	$url = BASEURL . $channel;
+	$out = curl_client($url, $file);
 	$out = curl_client($url, $file);
 	$out = ($out != 'Refresh ok') ? ("<div class='error'>" . $out . "</div>") : $out;
 	echo $out;
