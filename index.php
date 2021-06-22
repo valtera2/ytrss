@@ -2,6 +2,7 @@
 //ini_set('display_errors', true);
 define("BASEURL", "https://www.youtube.com/feeds/videos.xml?channel_id=");
 define("EMBEDBASE", "https://www.youtube.com/embed/");
+define("REFRESH_URLS", false);
 $config = parse_ini_file("extract.ini",true);
 
 include_once("header.php");
@@ -28,7 +29,8 @@ function strip_yurl($url) {
 function gen_out($obj, $title, $conf_key) {
 	$refresh_url = "<a href=" . $_SERVER['PHP_SELF'] . "?conf=" . $conf_key . ">" . "refresh rss" . "</a>";
 	echo "<div class='title'>" . $title . "</div>";
-	echo "<div class='toolbar'>" . $refresh_url . "</div>";
+	if(REFRESH_URLS) {echo "<div class='toolbar'>" . 
+$refresh_url . "</div>";}
 	echo "<table>";
 	if ($obj) {
 	foreach ($obj->entry as $value) {
@@ -70,8 +72,12 @@ function get_ini_id($conf) {
 }
 
 function curl_client($url, $filename) {
+	if (!REFRESH_URLS) {
+		$error = "Refresh urls are disabled.";
+		return $error;
+	}
 	if (!function_exists('curl_init')) {
-		$error = "failed to find  curl";
+		$error = "failed to find curl";
 		return $error;
 	}
 	$ch = curl_init($url);
