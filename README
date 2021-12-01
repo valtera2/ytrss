@@ -1,0 +1,22 @@
+Minimal youtube rss reader which does not require Javascript to use. The 
+web interface generates a non-clickable link to a video in the feed, so 
+one does not click it by accident and is not redirected to a full 
+youtube website and a clickable embed-video link. The Youtube 
+embed-video player does require Javascript to use, but does not load the 
+entire website with recommendations etc.
+
+To configure the appllication, edit the extract.ini file. Each section 
+corresponds to one youtube channel. You can have as many channels as you 
+like. All channels are rendered on the index webpage in a single list.
+
+Each channel has three items to configure:
+- path: enter a XML filename where ytrss will store the feed on a disk.
+- id: this is a youtube internal ID of a channel. You can find it by 
+viewing HTML source when on a youtube channel; search for "externalId".
+- title: this will be title displayed in ytrss above the feed items.
+
+To load the feeds, either run the python script cron.py OR if you feel 
+like anyone can refresh the feeds at will through the web interface, 
+set REFRESH_URLS to TRUE in the index.php file. A refresh link will 
+appear next to each feed. Note you will require the Curl PHP extension 
+on your server for it to work.
