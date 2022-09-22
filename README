@@ -1,13 +1,7 @@
-Minimal youtube rss reader which does not require Javascript to use. The 
-web interface generates a non-clickable link to a video in the feed, so 
-one does not click it by accident and is not redirected to a full 
-youtube website and a clickable embed-video link. The Youtube 
-embed-video player does require Javascript to use, but does not load the 
-entire website with recommendations etc.
+Minimal youtube rss reader which does not require Javascript to use.
 
 To configure the appllication, edit the extract.ini file. Each section 
-corresponds to one youtube channel. You can have as many channels as you 
-like. All channels are rendered on the index webpage in a single list.
+corresponds to one youtube channel. All channels are rendered on the index webpage in a single list.
 
 Each channel has three items to configure:
 - path: enter a XML filename where ytrss will store the feed on a disk.
